@@ -1,0 +1,64 @@
+/* Image Select */
+.customize-control-kirki-radio-image input:hover + label img {
+	opacity: .7 !important;
+}
+
+.customize-control-kirki-radio-image input:checked + label img {
+	box-shadow: none !important;
+	opacity: 1 !important;
+	border: 1px solid #aaa !important;
+}
+
+/* Premium Notice */
+#sub-accordion-section-wpbf_premium_addon .customize-section-title {
+	border-color: #3ba9d2;
+	border-top: 1px solid #3ba9d2;
+}
+
+#sub-accordion-section-wpbf_premium_addon .customize-section-title h3 {
+	color: #3ba9d2;
+}
+
+/* Tooltips  */
+.tooltip-trigger {
+	color:  #999;
+}
+
+.tooltip-trigger:hover {
+	color:  #50575e;
+}
+
+.tooltip-content {
+	font-size: 12px;
+}
+
+/* Adjust Headline (Description) on Theme Colors Panel */
+#customize-control-theme_colors_headline {
+	margin-bottom: 30px;
+}
+
+/* Hide "Font Family" labels */
+#customize-control-menu_logo_font_family,
+#customize-control-menu_logo_description_font_family,
+#customize-control-menu_font_family,
+#customize-control-sub_menu_font_family,
+#customize-control-page_font_family,
+#customize-control-page_h1_font_family,
+#customize-control-page_h2_font_family,
+#customize-control-page_h3_font_family,
+#customize-control-page_h4_font_family,
+#customize-control-page_h5_font_family,
+#customize-control-page_h6_font_family,
+#customize-control-footer_font_family,
+#customize-control-custom_fonts > label > .customize-control-title {
+	display: none !important;
+}
+
+/* Add top margin to Post Layout settings */
+#accordion-section-wpbf_single_options {
+	margin-top: 20px;
+}
+
+#accordion-section-wpbf_single_options h3 {
+	border-top: 1px solid #dcdcde;
+}

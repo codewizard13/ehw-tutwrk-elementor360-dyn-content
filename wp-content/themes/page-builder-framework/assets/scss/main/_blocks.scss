@@ -1,0 +1,52 @@
+/* Notices */
+/// We provide ".wp-block" here just to get this stylesheet get enqueued in the preview iframe
+.wp-block.wpbf-block-notices {
+	/// And we put the flex here, because the empty rule won't be printed in the compiled css.
+	display: flex;
+}
+
+/// Even though the blocks have been removed from PBF,
+/// we still need to keep the styles here to keep the compatibility.
+.wpbf-block-notices {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	flex-direction: row;
+
+	> .wpbf-block-notice {
+		margin-left: 0;
+		margin-right: 0.5em;
+	}
+}
+
+.wpbf-block-notice {
+	width: fit-content;
+}
+
+.wpbf-is-horizontal {
+	flex-direction: row;
+}
+
+.wpbf-is-vertical {
+	flex-direction: column;
+}
+
+.is-style-wpbf-full-width {
+	width: 100%;
+}
+
+.wpbf-content-justified-left {
+	justify-content: flex-start;
+}
+
+.wpbf-content-justified-center {
+	justify-content: center;
+}
+
+.wpbf-content-justified-space-between {
+	justify-content: space-between;
+}
+
+.wpbf-content-justified-right {
+	justify-content: flex-end;
+}

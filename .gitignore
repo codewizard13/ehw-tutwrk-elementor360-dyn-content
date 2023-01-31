@@ -1,0 +1,139 @@
+# Project:        MASTER GITIGNORE FILE
+#
+# This Filename:  .gitignore
+# Date Created:   01/20/23
+# Date Updated:   01/31/23
+# Programmer:     Eric L. Hepperle
+# 
+# File Version:    1.00.00
+# 
+# File Purpose:
+#   This is the master .gitignore file I created for my own use. You are free to copy and use this file at your own risk.
+#
+# Usage: Rename to .gitignore then use as normal.
+#
+#######################################################
+
+
+
+# WINDOWS #
+#######################################################
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Windows folder config file: Uncomment if you want custom folder icon changes to be tracked
+# Desktop.ini
+
+
+# MAC OS #
+#######################################################
+.DS_Store
+
+
+# GIT #
+#######################################################
+.git/
+
+
+# Images & Binaries #
+#######################################################
+#*.jpg
+#*.gif
+#*.png
+
+# Windows image file caches
+Thumbs.db
+
+
+# Compiled source #
+#######################################################
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+
+# Compressed #
+#######################################################
+# it's better to unpack these files and commit the raw source
+# git has its own built in compression methods
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+
+# Modules & Packages #
+#######################################################
+node_modules/
+
+
+# Logs and databases #
+#######################################################
+*.log
+*.sql
+*.sqlite
+
+# Ignore the default SQLite database.
+/db/*.sqlite3
+
+# Ignore all logfiles and tempfiles.
+/log/*.log
+/log/*.log*
+/tmp/*
+/.vagrant
+/spec/reports
+/coverage
+/*.sublime-*
+/*~
+
+
+# APPLICATIONS #
+#######################################################
+
+# DevOps: Chef, Puppet, Gulp, Grunt, etc
+.gemrc
+chef/
+public/assets/
+
+# Aptana
+/.project
+
+
+
+# Private Files, Credentials, Secrets #
+#######################################################
+private/
+*credential*
+*private*
+
+# Auth Tokens & API Keys
+token.json
+
+# Sandboxes & Junk Files
+sb/
+sandbox/
+playground/
+junk/
+*junk*
+
+# Screenshots
+# screens/
+
+
+# Eric's Custom Files and Folders to Ignore #
+#######################################################
+
+
+
+### ------------------------------------------------ ####
+#  This file is always evolving. Refer to the link at
+#  https://github.com/codewizard13/ehw-lib
+#  for the latest.

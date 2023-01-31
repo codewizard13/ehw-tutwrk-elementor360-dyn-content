@@ -1,0 +1,7 @@
+Tutorial Info:
+- Title: Creating Theme Templates with Dynamic Content for Elementor
+- Full URL: https://www.youtube.com/watch?v=KjpuH5w_9Sc&t=116s
+- Base URL: https://www.youtube.com/watch?v=KjpuH5w_9Sc
+- Channel: Elementor360
+- Channel URL: https://www.youtube.com/@Elementor360
+- Avatar URL: https://yt3.ggpht.com/ytc/AL5GRJWU8RdpoOQE4foqst_4jY2X4QF5l2o4zq_jSGto=s88-c-k-c0x00ffffff-no-rj

@@ -90,3 +90,8 @@ Full article: https://e360.co/creating-theme-templates-with-dynamic-content-for-
     <h4>Everything Elementor. News, reviews, interviews and resource listings related to Elementor as well as Elementor friendly themes and plugins.</h4>
   </div>
 </section>
+
+
+## Resources
+
+- https://www.youtube.com/watch?v=kJ56pGaWJo0

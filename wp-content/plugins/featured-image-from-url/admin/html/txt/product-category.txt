@@ -1,0 +1,13 @@
+{
+    "name": "Beach",
+    "meta_data": [
+        {
+            "key": "fifu_image_url",
+            "value": "https://storage.googleapis.com/fifu-paradise/8.jpg"
+        },
+        {
+            "key": "fifu_image_alt",
+            "value": "image a"
+        }
+    ]
+}

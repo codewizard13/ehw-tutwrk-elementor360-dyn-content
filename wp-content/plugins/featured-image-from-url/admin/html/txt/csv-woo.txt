@@ -1,0 +1,3 @@
+title,fifu_image_alt,fifu_image_url
+First Beach,image a,https://storage.googleapis.com/fifu-paradise/3.jpg
+Second Beach,image b,https://storage.googleapis.com/fifu-paradise/4.jpg

@@ -1,0 +1,34 @@
+{
+    "name": "Beach",
+    "type": "variable",
+    "meta_data": [
+        {
+            "key": "fifu_list_url",
+            "value": "https://storage.googleapis.com/fifu-paradise/0.jpg|https://storage.googleapis.com/fifu-paradise/3.jpg|https://storage.googleapis.com/fifu-paradise/1.jpg"
+        },
+        {
+            "key": "fifu_list_alt",
+            "value": "image a|image b|image c"
+        }
+    ],
+    "attributes": [
+        {
+            "name": "Color",
+            "visible": true,
+            "variation": true,
+            "options": [
+                "Black",
+                "Red"
+            ]
+        },
+        {
+            "name": "Size",
+            "visible": true,
+            "variation": true,
+            "options": [
+                "Big",
+                "Small"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,1177 @@
+<div class="wrap" style="opacity:0">
+
+    <div class="header-box">
+        <h1 style="color:white;padding-left:20px;width:98%;font-family:Ubuntu,sans-serif">
+            <span class="dashicons dashicons-yes-alt" style="font-size:30px"></span><span style="padding-left:20px"><?php _e('Troubleshooting') ?></span>
+        </h1>        
+    </div>
+
+    <div id="tabs-top" style="float:left">
+        <ul>
+            <div id="tabs-t" style="padding:1em 1.4em; position: relative; top: -25px;">
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2023-01-10</td>
+                            <td style="border-bottom:none"><h3> YOOtheme</h3></td>
+                            <td style="border-bottom:none">theme</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        Images not displayed because the URLs are being changed to relative paths:<br>
+                        1) edit "yootheme/templates/post/content.php" and replace<br>
+                        <textarea style="width:100%;height:25px;overflow:hidden" disabled>
+                            $src = Url::relative(set_url_scheme($src, 'relative'));
+                        </textarea>
+                        with<br>
+                        <textarea style="width:100%;height:25px;overflow:hidden" disabled>
+                            $src = strpos($src, get_home_url()) !== false ? Url::relative(set_url_scheme($src, 'relative')) : $src;
+                        </textarea>
+                        2) edit "yootheme/builder-wordpress-source/src/Type/AttachmentType.php" and add<br>
+                        <textarea style="width:100%;height:65px;overflow:hidden" disabled>
+                            $url = wp_get_attachment_url($attachmentId);
+                            if (strpos($url, get_home_url()) === false)
+                                return $url;
+                        </textarea>
+                        immediately before<br>
+                        <textarea style="width:100%;height:25px;overflow:hidden" disabled>
+                            $url = set_url_scheme(wp_get_attachment_url($attachmentId), 'relative');
+                        </textarea>
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2022-12-29</td>
+                            <td style="border-bottom:none"><h3> WP Job Manager</h3></td>
+                            <td style="border-bottom:none">plugin</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        Deformed images:<br>
+                        1) access "FIFU Settings > Performance > CDN + Optimized Thumbnails"<br>
+                        2) enable "CDN + optimized thumbnails"<br>
+                        3) enable "crop featured images"
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2022-12-26</td>
+                            <td style="border-bottom:none"><h3> AMP</h3></td>
+                            <td style="border-bottom:none">plugin</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        Style issues on AMP version:<br>
+                        1) run "FIFU Settings > Metadata > Save Image Dimensions".
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2022-12-19</td>
+                            <td style="border-bottom:none"><h3> Astra Pro</h3></td>
+                            <td style="border-bottom:none">plugin</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        FIFU Product Gallery doesn't load. Two possible solutions:<br>
+                        a) deactivate "Appearance > Astra Options > Available Astra Pro Modules > WooCommerce".<br>
+                        b) edit "astra-addon/addons/woocommerce/classes/class-astra-ext-woocommerce-markup.php" and replace<br>
+                        <textarea style="width:100%;height:45px;overflow:hidden" disabled>
+                            remove_action( 'woocommerce_before_single_product_summary', 'woocommerce_show_product_images', 20 );
+                            add_action( 'woocommerce_before_single_product_summary', array( $this, 'woo_single_product_gallery_output' ), 20 );
+                        </textarea>
+                        with<br>
+                        <textarea style="width:100%;height:100px;overflow:hidden" disabled>
+                            if (is_plugin_active('fifu-premium/fifu-premium.php') && fifu_is_on('fifu_gallery')) {}
+                            else {
+                                remove_action( 'woocommerce_before_single_product_summary', 'woocommerce_show_product_images', 20 );
+                                add_action( 'woocommerce_before_single_product_summary', array( $this, 'woo_single_product_gallery_output' ), 20 );
+                            }
+                        </textarea>
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2022-11-13</td>
+                            <td style="border-bottom:none"><h3> External Importer</h3></td>
+                            <td style="border-bottom:none">plugin</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        Integration with FIFU:<br>
+                        0) enable "FIFU Settings > Metadata > Schedule Metadata Generation"<br>
+                        1) access "External Importer > Settings > Import"<br>
+                        2) select "Disabled" for image<br>
+                        3) add "fifu_image_url" with the value "%PRODUCT.image%" to "Custom fields"<br>
+                        4) import a new product, wait 1 minute and the image will be displayed
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2022-10-11</td>
+                            <td style="border-bottom:none"><h3> Elementor</h3></td>
+                            <td style="border-bottom:none">plugin</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        "Archive Products" widget displays a small category image when FIFU > Settings > Performance > Lazy Load is enabled:<br>
+                        1) access "Appearance > your theme > Customize > Additional CSS";<br>
+                        2) add:<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;li.product-category>a{width:100%;}<br>
+                        3) publish.
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2022-09-22</td>
+                            <td style="border-bottom:none"><h3> Woodmart</h3></td>
+                            <td style="border-bottom:none">theme</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        "Replace Not Found Image" not working:<br>
+                        1) disable "Theme Settings > Performance > Lazy loading > Lazy loading for images"<br>
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2022-09-21</td>
+                            <td style="border-bottom:none"><h3> Wordpress Automatic Plugin</h3></td>
+                            <td style="border-bottom:none">plugin</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        Posts created by WP Automatic have no featured image. Two possible solutions:<br>
+                        a) contact its support, because WP Automatic is responsible for saving image URLs in FIFU custom fields<br>
+                        b) use "FIFU > Settings > Automatic > Auto set featured media using web page address" with the custom field "original_link"<br>
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2022-09-07</td>
+                            <td style="border-bottom:none"><h3> WP Content Pilot</h3></td>
+                            <td style="border-bottom:none">plugin</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        "Don't save the featured image in server" option doesn't work: <br>
+                        x) please contact its support, because WP Content Pilot developed that.<br>
+                    </div>
+                </div>                
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2022-09-06</td>
+                            <td style="border-bottom:none"><h3> WP Crontrol</h3></td>
+                            <td style="border-bottom:none">plugin</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        Integration with "FIFU > Settings > Auto set featured media from post content > Run for all posts":<br>
+                        1) go to "Tools > Cron Events > Add New"<br>
+                        2) select "Standard cron event" for "Event Type"<br>
+                        3) set "fifu_event" as "Hook Name"<br>
+                        4) choose a "Recurrence"<br>
+                        5) click on "Add Event"<br>
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2022-09-05</td>
+                            <td style="border-bottom:none"><h3> Knawat WooCommerce DropShipping</h3></td>
+                            <td style="border-bottom:none">plugin</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        Integration with FIFU:<br>
+                        1) open "dropshipping-woocommerce/includes/class-dropshipping-woocommerce-importer.php"<br>
+                        2) add the code below immediately after the line "// Formatting Image Data":<br>
+                        <textarea style="width:100%;height:135px;overflow:hidden" disabled>
+                            if (is_plugin_active('fifu-premium/fifu-premium.php') && isset($product->images) && !empty($product->images)) {
+                                $images = $product->images;
+                                $new_product['meta_data'][] = array(
+                                    'key'   => 'fifu_list_url',
+                                    'value' => implode('|', $product->images),
+                                );
+                            } else
+                        </textarea>
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2022-08-08</td>
+                            <td style="border-bottom:none"><h3> Facebook</h3></td>
+                            <td style="border-bottom:none">social networking</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        Facebook doesn't share a featured image and the Sharing Debugger informs: "Provided og:image URL, ... is not allowed because it points to the Facebook CDN". Two possible solutions:<br>
+                        a) don't use image URLs from "fbcdn.net".<br>
+                        b) upload the image to FIFU Cloud.<br>
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2022-07-23</td>
+                            <td style="border-bottom:none"><h3> Mipro</h3></td>
+                            <td style="border-bottom:none">theme</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        Quick Buy feature doesn't work:<br>
+                        1) access "Theme Options > WooCommerce > Lazy Loading > Enable Lazy Loading";<br>
+                        2) click on "Off";<br>
+                        3) click on "Save Changes" button.
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2022-07-23</td>
+                            <td style="border-bottom:none"><h3> Woodmart, Mipro</h3></td>
+                            <td style="border-bottom:none">themes</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        Product gallery doesn't work correctly. Two possible solutions:<br>
+                        a) run "FIFU Settings > Metadata > Save Image Dimensions";<br>
+                        b) enable "FIFU Settings > WooCommerce > FIFU Product Gallery".
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2022-06-15</td>
+                            <td style="border-bottom:none"><h3>Bacola Core</h3></td>
+                            <td style="border-bottom:none">plugin</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        External images not displayed:<br>
+                        1) open "bacola-core/inc/aq_resizer.php"<br>
+                        2) add "return $url;" immediately before the line "Check if $img_url is local"<br>
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2022-06-08</td>
+                            <td style="border-bottom:none"><h3>CoverNews</h3></td>
+                            <td style="border-bottom:none">theme</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        Solving "Featured Video" style issues:<br>
+                        1) access "FIFU Settings > Video";<br>
+                        2) set "0" for "Play Button > z-index";<br>
+                        3) set "50" for "Minimum Width";<br>
+                        4) set "lightbox" for "Play Button > mode";<br>
+                        4) access "Appearance > your theme > Customize > Additional CSS";<br>
+                        5) add:<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;.fifu_play {height: 100%;}<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;.fifu_h_iframe, .fifu_wrapper {height: 100% !important;}<br>
+                        6) publish.
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2022-05-16</td>
+                            <td style="border-bottom:none"><h3>Rey</h3></td>
+                            <td style="border-bottom:none">theme</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        "CDN + Optimized Thumbnails" not working properly. Two possible solutions:<br>
+                        a) access "Appearance > Customize > WooCommerce > Product Images > EXTRA IMAGES > Extra Images Display" and select "Disabled"<br>
+                        b) disable "FIFU Settings > Performance > Lazy Load"
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2022-04-30</td>
+                            <td style="border-bottom:none"><h3>Product/Review CSV Import Export</h3></td>
+                            <td style="border-bottom:none">plugin</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        Importing URLs to FIFU:<br>
+                        1) enable "FIFU Settings > Metadata > Schedule Metadata Generation"<br>
+                        2) use "custom fields" in the import template, as you would do for the WooCommerce import (take a look at "FIFU Settings > WooCommerce > Import")<br>
+                        3) run the import
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2022-04-23</td>
+                            <td style="border-bottom:none"><h3>Rank Math SEO</h3></td>
+                            <td style="border-bottom:none">plugin</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        Fixing "Add an image with your Focus Keyword as alt text":<br>
+                        1) go to "Featured image" meta box and type some text into "alt/title attribute" field<br>
+                        2) publish/update the post<br>
+                        3) refresh the page (F5)<br>
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2022-03-05</td>
+                            <td style="border-bottom:none"><h3>Gutentor - Gutenberg Blocks - Page Builder for Gutenberg Editor</h3></td>
+                            <td style="border-bottom:none">plugin</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        Fixing "This block has encountered an error and cannot be previewed":<br>
+                        1) run "FIFU Settings > Metadata > Save Image Dimensions"
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2022-02-09</td>
+                            <td style="border-bottom:none"><h3>CyberSEO</h3></td>
+                            <td style="border-bottom:none">plugin</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        Using external featured images:<br>
+                        1) access CyberSEO settings and check "Use FIFU"<br>
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2022-01-31</td>
+                            <td style="border-bottom:none"><h3>Wordpress Automatic Plugin</h3></td>
+                            <td style="border-bottom:none">plugin</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        Using external images in the product gallery:<br>
+                        1) access the campaign and uncheck all options in "Images" box<br>
+                        2) go to "Post Type, format & status" box and check "Add custom fields/Taxonomies to the posts"<br>
+                        3) use "fifu_list_url" as "Field Name" and "[product_imgs]" as "value"<br>
+                        4) click on "Run campaign" button<br>
+                    </div>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        Using a video from post content as featured video:<br>
+                        1) enable "FIFU Settings > Video > Featured Video"<br>
+                        2) enable "FIFU Settings > Automatic > Auto set featured media from post content > use the found image/video as featured image/video"<br>
+                        3) enable "FIFU Settings > Automatic > Auto set featured media from post content > hide the image/video from content"<br>
+                        4) access the campaign and uncheck all options in "Images" box<br>
+                        5) click on "Run campaign" button<br>
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2022-01-28</td>
+                            <td style="border-bottom:none"><h3>Motors – Car Dealer, Classifieds & Listing</h3></td>
+                            <td style="border-bottom:none">plugin</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        External images not displayed:<br>
+                        1) open stm_vehicles_listing/includes/vehicle_functions.php<br>
+                        2) remove the line "add_filter('wp_get_attachment_image_src', 'stm_get_thumbnail_filter', 100, 4);"<br>
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2022-01-28</td>
+                            <td style="border-bottom:none"><h3>Motors - Equipment</h3></td>
+                            <td style="border-bottom:none">plugin</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        External images not displayed:<br>
+                        1) open stm-motors-equipment/inc/helpers.php<br>
+                        2) remove the line "add_filter('wp_get_attachment_image_src', 'stm_equip_get_thumbnail_filter', 100, 4)"<br>
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2022-01-23</td>
+                            <td style="border-bottom:none"><h3>Imagely</h3></td>
+                            <td style="border-bottom:none">theme</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        External images not displayed:<br>
+                        1) open imagely/inc/third/image-resizer.php<br>
+                        2) replace "throw new Reactr_Extras_Exception('Image must be local: ' . $url);" by "return $url;"<br>
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2022-01-13</td>
+                            <td style="border-bottom:none"><h3>WP All Import</h3></td>
+                            <td style="border-bottom:none">plugin</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        Adding URLs from different elements to "Product image URL + gallery URLs". Examples:<br>
+                        a) {images[1]/image[1]}|{images[1]/image[2]}|{images[1]/image[3]}|{images[1]/image[4]}<br>
+                        b) [FOREACH({images/image})]{.}|[ENDFOREACH]<br>
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2021-10-12</td>
+                            <td style="border-bottom:none"><h3>PHP</h3></td>
+                            <td style="border-bottom:none">programming language</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        Fixing "PHP Warning: file_get_contents(): https:// wrapper is disabled in the server configuration by allow_url_fopen=0", which prevents "Auto set featured media using web page address" from working:<br>
+                        1) Access cPanel, MultiPHP INI Editor and enable "allow_url_fopen".<br>
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2021-09-27</td>
+                            <td style="border-bottom:none"><h3> Apache</h3></td>
+                            <td style="border-bottom:none">web server</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        FIFU settings don't work due 301 (Moved Permanently) POST followed by 404 (Not Found) GET.<br>
+                        1) open .htaccess file and replace 301 by 307;<br>
+                        2) restart Apache.<br>
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2021-07-05</td>
+                            <td style="border-bottom:none"><h3> Facebook</h3></td>
+                            <td style="border-bottom:none">social networking</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        Facebook doesn't share an LOCAL featured image and the Sharing Debugger informs: "Provided og:image URL, ... could not be processed as an image because it has an invalid content type". <br>
+                        1) make sure the image can be embedded externally. Because if your site tries to protect the image, for instance redirecting to another address, the image may not be accessed by the social media.<br>
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2021-06-28</td>
+                            <td style="border-bottom:none"><h3> Octolooks Scrapes</h3></td>
+                            <td style="border-bottom:none">plugin</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        Using external featured images. <br>
+                        1) access "Scrapes > All Scrapes > Actions > Edit > POST > CUSTOM FIELDS";<br>
+                        2) set "fifu_image_url" for "Name";<br>
+                        3) for "Value", click on the icon and select the featured image;<br>
+                        4) set "src" for "Attribute";<br>
+                        5) make sure "POST > FEATURED IMAGE > Value" is empty;<br>
+                        6) save.<br>
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2021-06-23</td>
+                            <td style="border-bottom:none"><h3> Domain</h3></td>
+                            <td style="border-bottom:none">address</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        Images missing due domain change. <br>
+                        1) run this SQL command: UPDATE wp_postmeta SET meta_value = REPLACE(meta_value, 'https://domain/', 'https://newdomain/') WHERE meta_key = 'fifu_image_url' AND meta_value LIKE '%//domain/%';<br>
+                        2) run Metadata > Clean Metadata;<br>
+                        3) enable Metadata > Image Metadata.<br>
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2021-06-15</td>
+                            <td style="border-bottom:none"><h3> Feed</h3></td>
+                            <td style="border-bottom:none">XML</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        XML parsing error: duplicate attribute xmlns:media="http://search.yahoo.com/mrss/". <br>
+                        1) the first attribute is added by FIFU (Media RSS Tags) and the duplicated one by another component you have installed on your site, such as Rank Math SEO plugin. Find and disable the option that is adding the duplicated attribute, otherwise services like Google News may not find your images.<br>
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2021-04-17</td>
+                            <td style="border-bottom:none"><h3> Rey + Rey Core</h3></td>
+                            <td style="border-bottom:none">theme + plugin</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        Product gallery doesn't work correctly.<br>
+                        1) enable "FIFU Settings > WooCommerce > FIFU Product Gallery";<br>
+                        2) access "Appearance > your theme > Customize > Additional CSS";<br>
+                        3) add:<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;div.rey-productSummary {justify-content:unset !important}<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;div.fifu-woo-gallery {padding: 20px !important}<br>
+                        4) publish.<br>
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2021-02-24</td>
+                            <td style="border-bottom:none"><h3> YITH WooCommerce Badge Management</h3></td>
+                            <td style="border-bottom:none">plugin</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        Badge is not being displayed when FIFU Product Gallery is enabled:<br>
+                        1) access "Appearance > your theme > Customize > Additional CSS";<br>
+                        2) add:<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;.yith-wcbm-badge {z-index: 11}<br>
+                        3) publish.<br>
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2021-02-19</td>
+                            <td style="border-bottom:none"><h3> Gillion</h3></td>
+                            <td style="border-bottom:none">theme</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        Theme hover effects are blocking featured video commands:<br>
+                        1) access "Appearance > Gillion > Customize > Additional CSS";<br>
+                        2) add:<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;.fifu_wrapper ~ a.post-lightbox {display: none !important;}<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;div.post-thumbnail > a.post-overlay {display: none;}<br>
+                        3) publish.<br>
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2021-01-12</td>
+                            <td style="border-bottom:none"><h3> Avada</h3></td>
+                            <td style="border-bottom:none">theme</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        Procut gallery has style issues:<br>
+                        1) access "Avada Settings > WooCommerce > WooCommerce Product Images Layout";<br>
+                        2) select "WooCommerce" instead of "Avada";<br>
+                        3) click on "Save Changes".<br>
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2020-12-03</td>
+                            <td style="border-bottom:none"><h3> Rehub</h3></td>
+                            <td style="border-bottom:none">theme</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        Featured slider is too big for Rehub sticky bar:<br>
+                        1) access "Appearance > Rehub > Customize > Additional CSS";<br>
+                        2) add:<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;div.float-panel-woo-image > div.fifu-slider {max-width: 100px;}<br>
+                        3) publish.<br>
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2020-10-16</td>
+                            <td style="border-bottom:none"><h3> Facebook</h3></td>
+                            <td style="border-bottom:none">social networking</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        Facebook doesn't share a featured image:<br>
+                        1) access https://developers.facebook.com/tools/debug/;<br>
+                        2) enter your post URL in the field (Facebook will clean its cache);<br>
+                        3) if Facebook shows your featured image, try to share the post again;<br>
+                        4) but if Facebook finds a different image, you probably have another component (plugin/theme) that is creating an og:image tag for a default image. Find out the component and check if it's possible to disable the default image.
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2020-10-05</td>
+                            <td style="border-bottom:none"><h3> "Warning: ..."</h3></td>
+                            <td style="border-bottom:none">message</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        Warning on frontend after activating FIFU. Two possible solutions:<br>
+                        a) open wp-config.php and before "Happy publishing" line add:<br>
+                        define('WP_DEBUG_DISPLAY', false);<br>
+                        b) look for ".../themes/[slug]/..." or ".../plugins/[slug]/..." in the message. The slug refers to the component responsible for the warning. Then please contact its developer informing the message and also that you are using FIFU, a plugin for external featured images. Warnings are usually easy to solve and happen because the component wasn't expecting for an external featured image.<br>
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2020-10-01</td>
+                            <td style="border-bottom:none"><h3> Divi</h3></td>
+                            <td style="border-bottom:none">theme</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        External featured images are not being shown:<br>
+                        1) deactivate "Divi > Theme Options > General > Enable Responsive Images".<br>
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2020-09-23</td>
+                            <td style="border-bottom:none"><h3> Facebook</h3></td>
+                            <td style="border-bottom:none">social networking</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        The featured image is being cropped when the post is shared in a Facebook page:<br>
+                        x) there is no local solution and the issue happens even with local featured images. Facebook pages expect 600x314px images and it will automatically crop images with a different aspect ratio. You may contact Facebook support and ask for changes.<br>
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2020-09-21</td>
+                            <td style="border-bottom:none"><h3> WooCommerce</h3></td>
+                            <td style="border-bottom:none">plugin</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        Zoom doesn't work:<br>
+                        1) it normally happens when you use small images. Your image dimensions should be greater than the gallery dimensions.<br>
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2020-08-27</td>
+                            <td style="border-bottom:none"><h3> WP Super Cache</h3></td>
+                            <td style="border-bottom:none">plugin</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        Images not visible after cleaning and generating FIFU metadata:<br>
+                        1) click on "Delete Cache".<br>
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2020-08-26</td>
+                            <td style="border-bottom:none"><h3> WordPress</h3></td>
+                            <td style="border-bottom:none"></td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        The image URL is not in the feed:<br>
+                        1) enable "FIFU Settings > Social > Media RSS Tags";<br>
+                        2) for single posts (only) it's necessary to add "?withoutcomments=1" in the end of the feed URL.<br>
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2020-08-25</td>
+                            <td style="border-bottom:none"><h3> Flatsome</h3></td>
+                            <td style="border-bottom:none">theme</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        WooCommerce lightbox doesn't work. Two possible solutions:<br>
+                        a) run "FIFU Settings > Metadata > Save Image Dimensions";<br>
+                        b) select "Flatsome > Customize > WooCommerce > Product Page > Gallery > Product Image Lightbox > Flatsome Lightbox".<br>
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2020-08-13</td>
+                            <td style="border-bottom:none"><h3> WooCommerce REST API</h3></td>
+                            <td style="border-bottom:none">API</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        The import of hundreds of thousands of products isn't fast enough:<br>
+                        1) deactivate FIFU;<br>
+                        2) import the products using the API;<br>
+                        3) activate FIFU;<br>
+                        4) run Metadata > Clean Metadata;<br>
+                        5) enable Metadata > Image Metadata.<br>
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2020-07-26</td>
+                            <td style="border-bottom:none"><h3> Gema Lite</h3></td>
+                            <td style="border-bottom:none">theme</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        Style issue with featured videos:<br>
+                        1) enable "FIFU Settings > Lazy Load";<br>
+                        2) disable "FIFU Settings > Video > Video Thumbnail";<br>
+                        3) access "Appearance > Gema Lite > Customize > Additional CSS";<br>
+                        4) add:<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;div.entry-featured > img.fifu-video {width:100%;}<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;div.card__image-wrap div {position:absolute;top:0;height:100%;}<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;div.fifu_wrapper + img {display:none;};<br>
+                        5) publish.<br>
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2020-06-18</td>
+                            <td style="border-bottom:none"><h3> Unyson</h3></td>
+                            <td style="border-bottom:none">plugin</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        "There has been a critical error on your website" message:<br>
+                        1) open "unyson/framework/helpers/class-fw-resize.php";<br>
+                        2) search for the line that contains "$saved['file']";<br>
+                        3) add "if(!is_array($saved))return;" immediately above that.<br>
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2020-06-03</td>
+                            <td style="border-bottom:none"><h3> Klb Shortcode</h3></td>
+                            <td style="border-bottom:none">plugin</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        Featured image not shown on carousel:<br>
+                        1) open "klb-shortcode/inc/klb-shortcode.php";<br>
+                        2) search for "$imageresize = dealsdot_resize( $image_src";<br>
+                        3) add "$imageresize = $imageresize ? $imageresize : $image_src;" immediately below that.<br>
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2020-06-01</td>
+                            <td style="border-bottom:none"><h3> Zapier (+YouTube)</h3></td>
+                            <td style="border-bottom:none">service</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        Setting featured video automatically:<br>
+                        1) access "FIFU Settings > Automatic > Auto set featured media from post content";<br>
+                        2) enable "use the found image/video as featured image";<br>
+                        3) enable "hide the image/video from content";<br>
+                        4) access "Zapier > Make a Zap", select YouTube as the first app and configure as you want;<br>
+                        5) select WordPress as the second app;<br>
+                        6) click on "Choose Action Event", select "Create Post" and "Continue";<br>
+                        7) select your "WordPress account" and "Continue";<br>
+                        8) on "Customize Post", click on "Content" and select "Embed URL";<br>
+                        9) put the "Embed URL" in an iframe tag: &lt;iframe src="Embed URL"&gt;&lt;/iframe&gt;<br>
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2020-05-31</td>
+                            <td style="border-bottom:none"><h3> Publisher</h3></td>
+                            <td style="border-bottom:none">theme</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        The theme lightbox doesn't work:<br>
+                        x) there is no solution for now. It seems the lightbox only works with image addresses (internal or external) that contains "/wp-content/uploads/". You may contact the theme developer and ask him to remove the restriction.<br>
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2020-05-20</td>
+                            <td style="border-bottom:none"><h3> Bimber</h3></td>
+                            <td style="border-bottom:none">theme</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        Home page images have different heights:<br>
+                        1) enable "FIFU Settings > Featured image >  Same Height";<br>
+                        2) access "Selector" tab and add two selectors: "ul.g1-featured-items" and "ul.g1-collection-items";<br>
+                        3) access "Size Ratio" tab and set "16:9".<br>
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2020-05-17</td>
+                            <td style="border-bottom:none"><h3> BuddyForms</h3></td>
+                            <td style="border-bottom:none">plugin</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        Adding "featured image" field to the form:<br>
+                        1) open the form editor;<br>
+                        2) select "Form Builder > Select Field Type > Url";<br>
+                        3) click on "+ Add Field" button;<br>
+                        4) a new field "Url" will be shown. Click on "Edit";<br>
+                        5) set "Featured image" for "Label";<br>
+                        6) set "Image URL" for "Description";<br>
+                        7) click on "Advanced";<br>
+                        8) set "fifu_image_url" for "Slug";<br>
+                        9) update.<br>
+                        * for a "featured video" field, use the same steps above, but replacing "image" by "video".
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2020-05-10</td>
+                            <td style="border-bottom:none"><h3> Avada</h3></td>
+                            <td style="border-bottom:none">theme</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        The video controls don't work on WooCommerce product gallery:<br>
+                        1) access "Appearance > Avada > Customize > Additional CSS";<br>
+                        2) add ".avada-product-gallery .avada-product-gallery-lightbox-trigger {position:unset;}";<br>
+                        3) publish.<br>
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2020-05-09</td>
+                            <td style="border-bottom:none"><h3> Post Sliders & Post Grids</h3></td>
+                            <td style="border-bottom:none">plugin</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        The post grid doesn't show external featured images:<br>
+                        x) there is no solution for now. "Post Sliders & Post Grids" only shows a featured image if that is stored in the media library. You may contact the author or install an alternative plugin, like <a href="https://wordpress.org/plugins/content-views-query-and-display-post-page/">this</a>.<br>
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2020-05-01</td>
+                            <td style="border-bottom:none"><h3> WooCommerce</h3></td>
+                            <td style="border-bottom:none">plugin</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        Product gallery thumbnails have different heights:<br>
+                        1) enable "FIFU Settings > Featured image >  Same Height";<br>
+                        2) access "Selector" tab and add "ol.flex-control-thumbs".<br>
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2020-04-20</td>
+                            <td style="border-bottom:none"><h3> Elementor</h3></td>
+                            <td style="border-bottom:none">plugin</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        Video controls not accessible for "Posts" element, when configured as "Layout > Skin > Cards":<br>
+                        1) access "Style > Card > Hover Effect";<br>
+                        2) select "None".<br>
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2020-04-02</td>
+                            <td style="border-bottom:none"><h3> WordPress</h3></td>
+                            <td style="border-bottom:none"></td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        Removing the references to the local featured images for all posts that have an external featured image as well:<br>
+                        1) run this SQL command: DELETE FROM wp_postmeta WHERE meta_key = '_thumbnail_id' AND post_id IN (SELECT post_id FROM (SELECT post_id FROM wp_postmeta WHERE meta_key = 'fifu_image_url') AS x);<br>
+                        2) enable "FIFU settings > Metadata > Clean Metadata";<br>
+                        3) enable "Image Metadata".<br>
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2020-03-10</td>
+                            <td style="border-bottom:none"><h3> Orienko</h3></td>
+                            <td style="border-bottom:none">theme</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        Video lightbox isn't shown ("n.fancybox.getInstance is not a function" error):<br>
+                        1) access "orienko/includes/head-media.php";<br>
+                        2) remove the line that contains "wp_enqueue_script( 'fancybox".<br>
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2020-03-09</td>
+                            <td style="border-bottom:none"><h3> Google Chrome | Firefox</h3></td>
+                            <td style="border-bottom:none">web browsers</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        Avoiding "Connection not secure" message:<br>
+                        1) use only https image URLs.<br>
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2020-03-04</td>
+                            <td style="border-bottom:none"><h3> Essential Grid</h3></td>
+                            <td style="border-bottom:none">plugin</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        Showing external videos:<br>
+                        1) access "Ess. Grid > Editor / Preview";<br>
+                        2) for each video access "Edit Post Meta > Choose Specific Skin", select "YoutubeStream" or "VimeoStream" and click on "Save Post Meta".<br>
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2019-01-30</td>
+                            <td style="border-bottom:none"><h3>WooCommerce</h3></td>
+                            <td style="border-bottom:none">plugin</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        Adding external "Product Image" and "Product Gallery" via SQL:<br>
+                        1) enable "FIFU Settings > Metadata > Schedule Metadata Generation";<br>
+                        2) run the SQL. Example: "insert into wp_postmeta (post_id, meta_key, meta_value) values (12345, 'fifu_list_url', 'URL1|URL2|URL3|URL4')"<br>
+                        * the first URL is for the featured image and the others for the gallery<br>
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2020-01-19</td>
+                            <td style="border-bottom:none"><h3>WP All Import</h3></td>
+                            <td style="border-bottom:none">plugin</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        Importing Variable Products to WooCommerce:<br>
+                        1) you should choose one of these options during the import:<br>
+                        - "All my variable products have SKUs or some other unique identifier. Each variation is linked to its parent with its parent's SKU or other unique identifier.";<br>
+                        - "All variations for a particular product have the same title as the parent product."<br>
+                        Options where the parent is created automatically won't work well.
+                    </div>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        Avoiding updates on unchanged image data:<br>
+                        1) access "WP All Import > Import Settings";<br>
+                        2) select "Update existing posts/products with changed data in your file > Choose which data to update";<br>
+                        3) uncheck "Images" (otherwise WP All Import will delete the image metadata and FIFU will need to create that again);<br>
+                        4) select "Custom Fields > Update only these Custom Fields, leave the rest alone".<br>
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2020-01-18</td>
+                            <td style="border-bottom:none"><h3>Ajax Load More</h3></td>
+                            <td style="border-bottom:none">plugin</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        Loading external featured videos:<br>
+                        1) check "Ajax Load More > Settings > Disable CSS".
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2020-01-17</td>
+                            <td style="border-bottom:none"><h3>Multisite Post Duplicator</h3></td>
+                            <td style="border-bottom:none">plugin</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        Duplicating post and external featured image:<br>
+                        1) enable "FIFU Settings > Metadata > Schedule Metadata Generation";<br>
+                        2) access "Multisite Post Duplicator Settings";<br>
+                        3) disable "Copy featured image when duplicating";<br>
+                        4) disable "Copy post content images to destination media library";<br>
+                        5) set "_thumbnail_id" for "Post Meta to ignore".
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2019-12-22</td>
+                            <td style="border-bottom:none"><h3>Jetpack</h3></td>
+                            <td style="border-bottom:none">plugin</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        Showing external images on "Related Posts":<br>
+                        x) there is no local solution. Jetpack Related Posts documentation informs: "we do all the analysis, processing, and serving from our cloud". It means Jetpack would need to adapt its web service to work with the images provided by FIFU. So you may contact Jetpack support, install an alternative plugin for Related Posts, like <a href="https://wordpress.org/plugins/related-posts-thumbnails/">this</a>, or try this <a href="https://wordpress.org/support/topic/featured-image-from-url-with-jetpack-related-posts/">snippet</a> (untested).<br>
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2019-12-12</td>
+                            <td style="border-bottom:none"><h3>PHP</h3></td>
+                            <td style="border-bottom:none">programming language</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        Fixing fatal error "Allowed memory size of [...] bytes exhausted (tried to allocate [...] bytes) in /var/www/html/wp-includes/wp-db.php":<br>
+                        1) open /var/www/html/wp-config.php file;<br>
+                        2) add this code before "Happy publishing" line: define('WP_MEMORY_LIMIT', '2048M');<br>
+                    </div>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        Fixing fatal error "Maximum execution time of 30 seconds exceeded in /var/www/html/wp-includes/wp-db.php":<br>
+                        1) open /var/www/html/wp-config.php file;<br>
+                        2) add this code before "Happy publishing" line: set_time_limit(1800);<br>
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2019-10-28</td>
+                            <td style="border-bottom:none"><h3>https</h3></td>
+                            <td style="border-bottom:none">protocol</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        Replacing http URLs by https:<br>
+                        1) run this SQL command: UPDATE wp_postmeta SET meta_value = REPLACE(meta_value, 'http://', 'https://') WHERE meta_key = 'fifu_image_url' AND  meta_value LIKE '%site.com%';<br>
+                        2) run "FIFU settings > Metadata > Clean Metadata";<br>
+                        3) enable "Image Metadata".<br>
+                        * replace site.com by the domain of the URLs you want to update
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2019-10-09</td>
+                            <td style="border-bottom:none"><h3>Ecome</h3></td>
+                            <td style="border-bottom:none">theme</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        Showing the external featured images:<br>
+                        1) open "ecome/framework/framework.php";<br>
+                        2) search for and remove "&& file_exists( $actual_file_path )".<br>
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2019-10-02</td>
+                            <td style="border-bottom:none"><h3>WPML Multilingual CMS + Translation Management</h3></td>
+                            <td style="border-bottom:none">plugins</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        Copying the external featured image to the translation:<br>
+                        1) access "WPML > Settings > Custom Fields Translation";<br>
+                        2) search for "fifu_image_url", choose "Copy" and save;<br>
+                        3) if you use FIFU premium, enable "Metadata > Schedule Metadata Generation". That's all;<br>
+                        4) but if you use the free version, after the translation post is created, access the post editor and click on "Update" button.<br>
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2019-09-27</td>
+                            <td style="border-bottom:none"><h3>Nelio External Featured Image (discontinued)</h3></td>
+                            <td style="border-bottom:none">plugin</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        Importing image URLs to FIFU:<br>
+                        0) make a backup (you might want to revert the changes later);<br>
+                        1) deactivate Nelio;<br>
+                        2) run this SQL command: INSERT INTO wp_postmeta (post_id, meta_key, meta_value) SELECT * FROM (SELECT post_id, 'fifu_image_url' AS meta_key, SUBSTRING_INDEX(SUBSTRING_INDEX(meta_value, '"', 2), '"', -1) AS meta_value FROM wp_postmeta WHERE meta_key = '_nelioefi_first_image') pm WHERE meta_value <> '';<br>
+                        3) run "FIFU settings > Metadata > Clean Metadata";<br>
+                        4) enable "Image Metadata".<br>
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2019-09-25</td>
+                            <td style="border-bottom:none"><h3>WP Telegram (Auto Post and Notifications)</h3></td>
+                            <td style="border-bottom:none">plugin</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        Sharing external featured images on Telegram:<br>
+                        1) just enable "Featured Image" toggle on  WP Telegram.<br>
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="border-bottom:none">2019-09-13</td>
+                            <td style="border-bottom:none"><h3>Toolset Forms + Toolset Types</h3></td>
+                            <td style="border-bottom:none">plugins</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        Adding "Featured image" field to an external post form:<br>
+                        1) add a new "Custom Fields Group";<br>
+                        2) add a new "Field";<br>
+                        3) set "fifu_image_url" for "Field slug".<br>
+                    </div>
+                </div>
+            </div>
+        </ul>
+    </div>
+</div>
+
+<script>
+    jQuery(document).ready(function () {
+        removeNotices();
+    });
+
+    // remove notices from other plugins
+    setTimeout(function () {
+        removeNotices();
+    }, 250);
+
+    function removeNotices() {
+        jQuery('div.header-box > div').remove();
+        jQuery('.notice').remove();
+        jQuery('[id^=wp-admin-bar-_]').remove();
+    }
+</script>

@@ -1,0 +1,93 @@
+<div class="wrap">
+
+    <div class="header-box">
+        <h1 style="color:white;padding-left:20px"><span class="dashicons dashicons-info" style="font-size:30px"></span><span style="padding-left:20px"><?php _e('Status') ?></span></h1>
+        <button id="fifu-clipboard" style="width:150px;float:right;position:absolute;left:870px;top:40px;">Copy to clipboard</button>
+    </div>
+
+    <div id="tabs-top" style="float:left">
+<textarea id="bar" style="width:1020px;height:800px;resize:none;background-color:white;" readonly>
+<?php echo fifu_version() ?>;
+WordPress:<?php bloginfo('version') ?>;
+Site:<?php echo get_home_url() ?>;
+Theme:<?php echo wp_get_theme() ?><?php echo fifu_woo_theme() ? ' (WooCommerce)' : '' ?>;
+PHP:<?php echo phpversion() ?>;
+WooCommerce:<?php echo class_exists('WooCommerce') ? WC()->version : '' ?>;
+Pages:<?php echo wp_count_posts('page')->publish ?>;
+Posts:<?php echo wp_count_posts('post')->publish ?>;
+Products:<?php echo class_exists('WooCommerce') ? wp_count_posts('product')->publish : null ?>;
+Images without dimensions:<?php echo fifu_db_missing_dimensions() ?>;
+URLs with metadata:<?php echo fifu_db_count_urls_with_metadata() ?>;
+URLs:<?php echo fifu_db_count_urls() ?>;
+Users:<?php echo fifu_number_of_users() ?>;
+php-curl:<?php echo fifu_has_curl() ? 'yes' : 'no' ?>;
+Max lenght:<?php echo fifu_db_get_guid_size() ?>;
+Plugins:<?php echo fifu_get_plugins_list() ?>;
+Active plugins:<?php echo fifu_get_active_plugins_list() ?>;
+fifu_auto_alt:<?php echo $enable_auto_alt ?>;
+fifu_cdn_content:<?php echo $enable_cdn_content ?>;
+fifu_cdn_crop:<?php echo $enable_cdn_crop ?>;
+fifu_cdn_social:<?php echo $enable_cdn_social ?>;
+fifu_check:<?php echo $enable_check ?>;
+fifu_content:<?php echo $enable_content ?>;
+fifu_content_cpt:<?php echo $enable_content_cpt ?>;
+fifu_content_page:<?php echo $enable_content_page ?>;
+fifu_data_clean:<?php echo $enable_data_clean ?>;
+fifu_decode:<?php echo $enable_decode ?>;
+fifu_default_cpt:<?php echo $default_cpt ?>;
+fifu_default_url:<?php echo $default_url ?>;
+fifu_dynamic_alt:<?php echo $enable_dynamic_alt ?>;
+fifu_enable_default_url:<?php echo $enable_default_url ?>;
+fifu_fake:<?php echo $enable_fake ?>;
+fifu_get_first:<?php echo $enable_get_first ?>;
+fifu_hide_cpt:<?php echo $enable_hide_cpt ?>;
+fifu_hide_page:<?php echo $enable_hide_page ?>;
+fifu_hide_post:<?php echo $enable_hide_post ?>;
+fifu_html_cpt:<?php echo $html_cpt ?>;
+fifu_lazy:<?php echo $enable_lazy ?>;
+fifu_ovw_first:<?php echo $enable_ovw_first ?>;
+fifu_photon:<?php echo $enable_photon ?>;
+fifu_pop_first:<?php echo $enable_pop_first ?>;
+fifu_query_strings:<?php echo $enable_query_strings ?>;
+fifu_reset:<?php echo $enable_reset ?>;
+fifu_run_delete_all:<?php echo $enable_run_delete_all ?>;
+fifu_run_delete_all_time:<?php echo $enable_run_delete_all_time ?>;
+fifu_skip:<?php echo $skip ?>;
+fifu_social:<?php echo $enable_social ?>;
+fifu_social_image_only:<?php echo $enable_social_image_only ?>;
+fifu_spinner_nth:<?php echo $nth_image ?>;
+fifu_wc_lbox:<?php echo $enable_wc_lbox ?>;
+fifu_wc_zoom:<?php echo $enable_wc_zoom ?>;
+Image:<?php echo fifu_get_last('fifu_image_url') ?>;
+Video:<?php echo fifu_get_last('fifu_video_url') ?>;
+Slider:<?php echo fifu_get_last('fifu_slider_image_url_0') ?>;
+REST routes:
+- <?php echo get_rest_url() ?>:PHP;
+</textarea>
+    </div>
+</div>
+
+<script>
+    jQuery(document).ready(function () {
+        var box = jQuery("#bar");
+        box.val(box.val() + '- ' + fifu_get_rest_url().substring(0, 100) + ':JS');
+        removeNotices();
+    });
+
+    // remove notices from other plugins
+    setTimeout(function () {
+        removeNotices();
+    }, 250);
+
+    function removeNotices() {
+        jQuery('div.header-box > div').remove();
+        jQuery('.notice').remove();
+        jQuery('[id^=wp-admin-bar-_]').remove();
+    }
+
+    jQuery('#fifu-clipboard').on('click', function() {
+        jQuery("#bar").select();
+        navigator.clipboard.writeText(jQuery("#bar").val());
+        jQuery('#fifu-clipboard').text('Copied');
+    });
+</script>

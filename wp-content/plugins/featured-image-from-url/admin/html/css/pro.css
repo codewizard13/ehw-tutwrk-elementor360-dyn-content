@@ -1,0 +1,12 @@
+a.fifu-pro-link {
+    text-decoration: none;
+}
+
+span.fifu-pro-icon {
+    font-size:32px;
+    color: #d63638;
+    filter: drop-shadow(5px 5px 5px #888888);
+    position: relative;
+    left: -30px;
+    top: 5px;
+}

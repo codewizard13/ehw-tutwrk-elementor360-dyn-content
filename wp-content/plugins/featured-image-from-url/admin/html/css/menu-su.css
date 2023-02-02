@@ -1,0 +1,35 @@
+div.su > th, td {
+    border-bottom: 0px solid #ddd !important;
+}
+
+.dataTables_wrapper .dataTables_length select {
+    width: 60px;
+}
+
+span.ui-dialog-title {
+    font-weight: bold;
+}
+
+.ui-widget-overlay {
+    background: #1d2327 !important;
+}
+
+.first-cloud-box { 
+    background: #ffffff85;
+    border: 1px solid #dbdbdb; 
+    padding: 20px; 
+    padding-top: 10px;
+    border-radius: 60px 15px 15px 15px;
+}
+
+.cloud-tab {
+    padding-top: 0 !important;
+    background: #f9f9f9 !important;
+}
+
+.response_message {
+    position: relative; 
+    float: right; 
+    top: -10px; 
+    padding: 9px;
+}

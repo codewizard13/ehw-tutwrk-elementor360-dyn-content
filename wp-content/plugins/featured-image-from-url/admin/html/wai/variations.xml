@@ -1,0 +1,29 @@
+<Product>
+	<title>Parent</title>
+	<sku>ParentSKU1</sku>
+	<Extended_Xml_Attributes>
+		<variants>
+			<variant>
+				<title>V1</title>
+				<price>1</price>
+				<color>Red</color>
+				<sku>PRODUCTRED1</sku>
+				<fifu_list_url>https://images.pexels.com/photos/912110/pexels-photo-912110.jpeg|https://images.pexels.com/photos/37728/pexels-photo-37728.jpeg|https://images.pexels.com/photos/158827/field-corn-air-frisch-158827.jpeg</fifu_list_url>
+			</variant>
+			<variant>
+				<title>V2</title>
+				<price>2</price>
+				<color>Green</color>
+				<sku>PRODUCTGREEN1</sku>
+				<fifu_list_url>https://images.pexels.com/photos/627823/pexels-photo-627823.jpeg|https://images.pexels.com/photos/66997/pexels-photo-66997.jpeg|https://images.pexels.com/photos/46160/field-clouds-sky-earth-46160.jpeg</fifu_list_url>
+			</variant>
+			<variant>
+				<title>V3</title>
+				<price>3</price>
+				<color>Blue</color>
+				<sku>PRODUCTBLUE1</sku>
+				<fifu_list_url>https://images.pexels.com/photos/355465/pexels-photo-355465.jpeg|https://images.pexels.com/photos/55787/pexels-photo-55787.jpeg|https://images.pexels.com/photos/412462/pexels-photo-412462.jpeg</fifu_list_url>
+			</variant>
+		</variants>
+	</Extended_Xml_Attributes>
+</Product>

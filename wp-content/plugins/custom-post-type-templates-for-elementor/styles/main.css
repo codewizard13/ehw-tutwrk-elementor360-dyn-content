@@ -1,0 +1,51 @@
+.miga_custom_posts .boxes {
+  display: flex;
+  margin-top: 20px;
+}
+
+.miga_custom_posts .box {
+  border: 1px solid #aaa;
+  padding: 5px;
+  margin: 0 10px 10px 0;
+  position: relative;
+  min-width: 220px;
+  background-color: #fff;
+}
+
+.miga_custom_posts .box select {
+  width: 100%;
+  border: 1px solid #aaa;
+}
+
+.miga_custom_posts .add {
+  border: 0;
+  background-color: #6171ff;
+  padding: 5px 10px;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.25s background-color;
+}
+
+.miga_custom_posts .add .eicon-plus-square {
+  margin-right: 10px;
+}
+
+.miga_custom_posts .remove .eicon-trash-o {
+  margin: 5px;
+}
+
+.miga_custom_posts .box .remove {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  border: 0;
+  background-color: #f44;
+  padding: 5px 10px;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.25s background-color;
+}
+
+.miga_custom_posts .box .remove:hover {
+  background-color: #f22;
+}

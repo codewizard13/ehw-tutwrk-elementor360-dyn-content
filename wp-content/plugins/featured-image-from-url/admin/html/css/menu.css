@@ -1,0 +1,231 @@
+.wrap {
+    max-width: 1020px;
+    margin: 0px;
+}
+
+.header-box {
+    margin: 25px 0 0;
+    background: #fff;
+    padding-top: 0px;
+    border-radius: 100px 45px 0px 0px;
+    height: 48px !important;
+    background: repeating-linear-gradient(-55deg,#23282d,#23282d 2px,#32373c 2px,#32373c 5px);
+    background-color:#23282d;
+    float:left;
+    width:100%;
+    max-width: 1020px;
+}
+
+.box {
+    margin: 17px 0 0;
+    background: #ffffff85;
+    border: 1px solid #dbdbdb;
+    padding: 20px;
+    padding-top: 10px;
+    border-radius: 60px 15px 15px 15px;
+}
+
+.greybox {
+    margin: 10px 0 0;
+    background: #efefef;
+    border: 1px solid #dbdbdb;
+    padding: 20px;
+    border-radius: 15px 15px 15px 15px;
+    background: repeating-linear-gradient(-55deg,#efefef,#efefef 2px,#efefefb3 2px,#efefefb3 5px);
+}
+
+.greybox p {
+}
+
+#tabs-top{
+    border-radius: 0px 0px 15px 15px;
+}
+
+#tabs-top > ul:nth-child(1) {
+    padding: 0 0 0;
+}
+
+.toggleon, .toggleoff {
+    padding: 0;
+    overflow: hidden;
+    width: 72px;
+    height: 24px;
+    background: url("../../images/onoff.jpg") 0 0 no-repeat;
+    text-align: center !important;
+}
+
+.toggleoff {
+    background: url("../../images/onoff.jpg") -72px 0 no-repeat;
+}
+
+th, td {
+    border-bottom: 0px solid #ddd;
+    padding-right: 8px;
+    padding-left: 8px;
+    font-weight: normal;
+}
+
+th {
+    height: 25px;
+}
+
+tr.color:nth-child(even) {
+    background-color: #efefef !important;
+}
+
+.ui-widget-header {
+    background: #f9f9f9 !important;
+    border: none !important;
+    font-weight: inherit !important;
+}
+
+#grad2 {
+    /* border: 1px dotted #aa1919;
+    border-radius: 1px;
+    border-radius: 15px 15px 15px 15px; */
+}
+
+/* table */
+
+#thumbnail-size {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#thumbnail-size td, #thumbnail-size th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#thumbnail-size tr:nth-child(even){
+    background-color: #f2f2f2;
+}
+
+#thumbnail-size th {
+    padding-top: 6px;
+    padding-bottom: 6px;
+    background-color: #23282d;
+    color: white;
+}
+
+.speech-bubble {
+    position: relative;
+    background: #799d60;
+    border-radius: 1em;
+    width: 80%;
+    line-height: 13px;
+}
+
+.speech-bubble:after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 27%;
+    width: 0;
+    height: 0;
+    border: 12px solid transparent;
+    border-left-color: #799d60;
+    border-right: 0;
+    margin-top: -12px;
+    margin-right: -12px;
+}
+
+.speech-bubble2 {
+    position: relative;
+    background: #4193aa;
+    border-radius: 1em;
+    width: 100%;
+    line-height: 13px;
+    top:20px;
+}
+
+.speech-bubble2:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 91%;
+    width: 0;
+    height: 0;
+    border: 12px solid transparent;
+    border-bottom-color: #4193aa;
+    border-top: 0;
+    margin-left: -12px;
+    margin-top: -12px;
+}
+
+.speech-bubble3 {
+    position: relative;
+    background: #000;
+    border-radius: 1em;
+    width: 100%;
+    line-height: 13px;
+}
+
+.speech-bubble3:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 30%;
+    width: 0;
+    height: 0;
+    border: 12px solid transparent;
+    border-right-color: #000;
+    border-left: 0;
+    margin-top: -12px;
+    margin-left: -12px;
+}
+
+.ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited {
+    color: white;
+}
+
+.fifu-google-cloud {
+    height: 50px;
+    position: relative;
+    float:right;
+    right:16px;
+    top:-10px;
+}
+
+.fifu-chrome {
+    height: 20px;
+    position: relative;
+    float:right;
+    right:16px;
+    padding: 7px;
+}
+
+div.fifu-referral {
+    height: 20px;
+    position: relative;
+    float:right;
+    right:8px;
+    top:-2px;
+    padding: 7px;
+    color: #f0f0f1;
+    display: flex;
+}
+
+div.polaroid {
+    width: 100%;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    text-align: center;
+    border-radius: 15px;
+}
+
+.fifu-cloud-details {
+    float:right;
+    background-color: #fcfcfc;
+}
+
+.fifu-cloud-details-icon {
+    font-size:32px;
+    color: #0073aa;
+    cursor: help;
+    filter: drop-shadow(5px 5px 5px #888888);
+}
+
+.fifu-pro {
+    float:left;
+}

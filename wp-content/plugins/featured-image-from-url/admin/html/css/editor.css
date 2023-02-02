@@ -1,0 +1,11 @@
+.components-responsive-wrapper > span {
+    padding-bottom: 0px !important;
+}
+
+.components-responsive-wrapper > div {
+    padding-bottom: 0px !important;
+}
+
+.components-responsive-wrapper__content {
+    position:relative !important;
+}

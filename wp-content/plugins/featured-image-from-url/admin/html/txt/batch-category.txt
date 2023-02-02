@@ -1,0 +1,30 @@
+{
+    "create": [
+        {
+            "name": "Beach 1",
+            "meta_data": [
+                {
+                    "key": "fifu_image_url",
+                    "value": "https://storage.googleapis.com/fifu-paradise/10.jpg"
+                },
+                {
+                    "key": "fifu_image_alt",
+                    "value": "image a"
+                }
+            ]
+        },
+        {
+            "name": "Beach 2",
+            "meta_data": [
+                {
+                    "key": "fifu_image_url",
+                    "value": "https://storage.googleapis.com/fifu-paradise/11.jpg"
+                },
+                {
+                    "key": "fifu_image_alt",
+                    "value": "image b"
+                }
+            ]
+        }
+    ]
+}

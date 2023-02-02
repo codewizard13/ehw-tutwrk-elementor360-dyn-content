@@ -1,0 +1,24 @@
+{
+    "name": "Beach",
+    "meta_data": [
+        {
+            "key": "fifu_list_url",
+            "value": "https://storage.googleapis.com/fifu-paradise/8.jpg|https://storage.googleapis.com/fifu-paradise/9.jpg|https://storage.googleapis.com/fifu-paradise/5.jpg"
+        },
+        {
+            "key": "fifu_list_alt",
+            "value": "image a|image b|image c"
+        }
+    ],
+    "regular_price": "1.00",
+    "attributes": [
+        {
+            "name": "Color",
+            "option": "Black"
+        },
+        {
+            "name": "Size",
+            "option": "Small"
+        }
+    ]
+}

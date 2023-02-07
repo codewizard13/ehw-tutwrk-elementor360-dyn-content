@@ -1,0 +1,193 @@
+/* Dashboard Widget */
+[id*='ms-udb'] {
+	text-align: center;
+}
+
+[id*='ms-udb'] .fa,
+[id*='ms-udb'] .fas,
+[id*='ms-udb'] .fab,
+[id*='ms-udb'] .far,
+[id*='ms-udb'] .dashicons {
+	font-size: 68px;
+	width: auto;
+	height: auto;
+	display: block;
+	padding: 0 0 40px 0;
+	box-shadow: none;
+	color: #555;
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	-o-transition: all 0.3s;
+	transition: all 0.3s;
+	-moz-transform-style: preserve-3d;
+	-webkit-transform: translateZ(0);
+	-webkit-backface-visibility: hidden;
+	-moz-backface-visibility: hidden;
+	-ms-backface-visibility: hidden;
+}
+
+[id*='ms-udb'] .fa:hover,
+[id*='ms-udb'] .fas:hover,
+[id*='ms-udb'] .fab:hover,
+[id*='ms-udb'] .far:hover,
+[id*='ms-udb'] .dashicons:hover {
+	color: #555;
+	opacity: 0.8;
+	-webkit-transform: scale(1.08);
+	-moz-transform: scale(1.08);
+	-ms-transform: scale(1.08);
+	-o-transform: scale(1.08);
+	transform: scale(1.08);
+}
+
+[id*='ms-udb'] a {
+	text-decoration: none;
+}
+
+[id*='ms-udb'] a:focus {
+	box-shadow: none;
+}
+
+[id*='ms-udb'] .handlediv, /* Backwards compatibility (<5.5) */
+[id*='ms-udb'] .handle-actions {
+	display: none !important;
+}
+
+[id*='ms-udb'] .ui-draggable-handle,
+[id*='ms-udb'] .ui-sortable-handle {
+	touch-action: auto;
+}
+
+[id*='ms-udb'] .hndle {
+	font-weight: 400;
+	border-bottom: 0; /* Backwards compatibility (<5.5) */
+	font-size: 22px !important;
+	padding: 40px 30px !important;
+	justify-content: center; /* 5.5 compatibility */
+}
+
+[id*='ms-udb'] .postbox-header {
+	border-bottom: 0; /* 5.5 compatibility */
+}
+
+[id*='ms-udb'].postbox.closed .postbox-header {
+	border-bottom: 1px solid #ccd0d4; /* 5.5 compatibility */
+}
+
+[id*='ms-udb'] .inside {
+	position: static;
+	margin-top: 0;
+	border-bottom: 0;
+	padding: 0 30px 30px 30px;
+}
+
+/* Text Widget */
+[id*='ms-udb'].udb-content .hndle {
+	text-align: left;
+	justify-content: space-between; /* 5.5 compatibility */
+}
+
+[id*='ms-udb'].udb-content.closed .hndle {
+	text-align: center;
+	justify-content: center; /* 5.5 compatibility */
+}
+
+.udb-content-wrapper {
+	min-height: 108px;
+	text-align: left;
+	overflow-y: auto;
+}
+
+.udb-content-wrapper p {
+	margin: 0 0 1em 0;
+}
+
+.udb-content-wrapper p:last-child {
+	margin: 0;
+}
+
+.udb-content-wrapper ul li {
+	list-style: disc;
+	list-style-position: inside;
+	margin-bottom: 3px;
+}
+
+.udb-content-wrapper ol {
+	margin-left: 0;
+}
+
+.udb-content-wrapper ol li {
+	list-style-position: inside;
+	margin-bottom: 3px;
+}
+
+/* Tooltip */
+.udb-info {
+	padding: 15px;
+	position: absolute;
+	top: 0;
+	right: 0;
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	-o-transition: all 0.3s;
+	transition: all 0.3s;
+	cursor: pointer;
+	font-size: 16px !important;
+	color: #aaa;
+	z-index: 999;
+}
+
+.udb-info:before {
+	font-family: "Font Awesome 5 Free";
+	font-style: normal;
+	content: "\f059";
+	font-weight: 900;
+}
+
+.udb-info:hover {
+	color: #555;
+}
+
+.udb-info:hover + .udb-tooltip {
+	opacity: 1;
+	visibility: visible;
+}
+
+.udb-tooltip {
+	border-radius: 2px;
+	position: absolute;
+	top: 80px;
+	left: 13%;
+	right: 13%;
+	z-index: 999;
+	opacity: 0;
+	visibility: hidden;
+	line-height: normal;
+	color: #fff;
+	text-align: left;
+	background: #555;
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	-o-transition: all 0.3s;
+	transition: all 0.3s;
+}
+
+.udb-tooltip span {
+	display: block;
+	padding: 8px;
+	text-align: center;
+}
+
+.udb-tooltip:after {
+	position: absolute;
+	top: -22px;
+	font-family: "Font Awesome 5 Free";
+	content: "\f0d8";
+	left: 50%;
+	width: 40px;
+	margin-left: -20px;
+	text-align: center;
+	font-size: 35px !important;
+	color: #555;
+	font-weight: 900;
+}

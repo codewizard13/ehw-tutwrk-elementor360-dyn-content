@@ -1,0 +1,122 @@
+.udb-is-hidden {
+	display: none;
+}
+
+/**
+ * Fix custom admin bar menu item icon.
+ */
+.udb-admin-bar-output--menu-link .ab-icon {
+	top: 2px;
+}
+
+/**
+ * Highlight PRO upgrade link.
+ */
+#adminmenu #menu-posts-udb_widgets a[href="https://ultimatedashboard.io/pro/"],
+#adminmenu #menu-posts-udb_widgets a[href="edit.php?post_type=udb_widgets&page=udb_plugin_onboarding"] {
+	color: #47d87c;
+}
+
+/**
+ * Notices for metabox.
+ */
+.udb-notice-metabox .heatbox-content p:last-child {
+	margin-bottom: 0;
+}
+
+.udb-notice-metabox.is-success {
+	border-left-width: 4px;
+	border-left-color: #00a32a;
+}
+
+.udb-notice-metabox.is-warning {
+	border-left-width: 4px;
+	border-left-color: #dba617;
+}
+
+.udb-notice-metabox.is-info {
+	border-left-width: 4px;
+	border-left-color: #72aee6;
+}
+
+/**
+ * BFCM Notice.
+ */
+.udb-bfcm-notice {
+	padding: 25px 20px;
+}
+
+.udb-bfcm-notice .notice-body {
+	display: flex;
+}
+
+.udb-bfcm-notice .notice-icon {
+	padding-right: 25px;
+}
+
+.udb-bfcm-notice .notice-icon img {
+	max-width: 55px;
+}
+
+.udb-bfcm-notice .notice-content {
+	width: 100%;
+}
+
+.udb-bfcm-notice .notice-content h2 {
+	margin-top: 0;
+	margin-bottom: 10px;
+	font-weight: 700;
+}
+
+.udb-bfcm-notice .notice-content > p {
+	margin-top: 0;
+	margin-bottom: 10px;
+}
+
+.udb-bfcm-notice .notice-content > p:last-child {
+	margin-bottom: 0;
+}
+
+/**
+ * Upgrade nag.
+ */
+.udb-pro-upgrade-nag {
+	margin-top: 15px;
+	background: #197cff;
+	color: #fff;
+	margin-bottom: 20px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 20px;
+	font-weight: 700;
+}
+
+.udb-pro-upgrade-nag > * {
+	margin: 0;
+}
+
+.udb-pro-upgrade-nag .button {
+	background: rgba(0, 45, 96, 0.5);
+	padding: 5px 15px !important;
+}
+
+.udb-pro-upgrade-nag .button:hover {
+	background: rgba(0, 45, 96, 0.6);
+}
+
+.udb-pro-admin-bar-notice {
+	border-top: none;
+	margin-top: 0;
+	padding-top: 0;
+}
+
+@media screen and (max-width: 991px) {
+	.udb-pro-upgrade-nag {
+		flex-wrap: wrap;
+	}
+	.udb-pro-upgrade-nag .button {
+		margin-top: 20px;
+		margin-bottom: 0;
+	}
+}

@@ -18,7 +18,7 @@ class HelperProviderCoreUC_EL{
 	public static $arrGlobalColors;
 	private static $arrCacheElementorTemplate;
 	private static $arrPostContentCache = array();
-	private static $arrTemplateContentCache = array();
+	private static $arrTemplatesCounter = array();
 	
 	
 	/**
@@ -553,7 +553,52 @@ class HelperProviderCoreUC_EL{
 		return($content);
 	}
 	
-	
+	/**
+	 * get elementor condition from param
+	 */
+	public static function paramToElementorCondition($param){
+				
+		$condition = array();
+		
+		$enableCondition = UniteFunctionsUC::getVal($param, "enable_condition");
+		if($enableCondition == true){
+			
+			$attribute = UniteFunctionsUC::getVal($param, "condition_attribute");
+			$operator = UniteFunctionsUC::getVal($param, "condition_operator");
+			$value = UniteFunctionsUC::getVal($param, "condition_value");
+			
+			if(is_array($value) && count($value) == 1){
+				$value = $value[0];
+				if($operator == "not_equal")
+					$value = "!".$value;
+			}
+			
+			$condition[$attribute] = $value;
+		}
+		
+		
+		if(empty($condition))
+			return($condition);
+		
+		$attribute2 = UniteFunctionsUC::getVal($param, "condition_attribute2");
+		
+		if(!empty($attribute2)){
+			
+			$operator = UniteFunctionsUC::getVal($param, "condition_operator2");
+			$value = UniteFunctionsUC::getVal($param, "condition_value2");
+			
+			if(is_array($value) && count($value) == 1){
+				$value = $value[0];
+				if($operator == "not_equal")
+					$value = "!".$value;
+			}
+			
+			$condition[$attribute2] = $value;
+		}
+		
+		
+		return($condition);
+	}
 	
 	private static function ______LISTING________(){}
 	
@@ -585,13 +630,21 @@ class HelperProviderCoreUC_EL{
 	 */
 	public static function putElementorTemplate($templateID){
 		
-		if(isset(self::$arrTemplateContentCache[$templateID]))
-			return(self::$arrTemplateContentCache[$templateID]);
+		if(!isset(self::$arrTemplatesCounter[$templateID]))
+			self::$arrTemplatesCounter[$templateID] = 0;
 		
+		self::$arrTemplatesCounter[$templateID]++;
+		
+		if(self::$arrTemplatesCounter[$templateID] >= 50){
+			$text = __("Infinite Template Loop Found","unlimited-elements-for-elementor");
+			
+			dmp($text);
+			
+			return($text);
+		}
+					
 		$output = self::getElementorTemplate($templateID);
-		
-		self::$arrTemplateContentCache[$templateID] = $output;
-		
+						
 		echo $output;
 	}
 	
@@ -635,6 +688,10 @@ class HelperProviderCoreUC_EL{
 			return(false);
 		
 		global $wp_query;
+		
+		//empty the infinite loop protection
+		
+		self::$arrTemplatesCounter = array();
 		
 		$originalPost = $GLOBALS['post'];
 		

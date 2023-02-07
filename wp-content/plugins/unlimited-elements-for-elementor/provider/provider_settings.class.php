@@ -2639,7 +2639,19 @@ class UniteCreatorSettings extends UniteCreatorSettingsWork{
 	 */
 	protected function addItemsMultisourceSettings($name, $value, $title, $param){
 		
-		$objMultisourceSettings = new UniteCreatorSettingsMultisource();
+		//pro version - add all settings
+		
+		if(GlobalsUC::$isProVersion == true){
+			
+			require_once GlobalsUC::$pathPro."provider_settings_multisource_pro.class.php";
+			$objMultisourceSettings = new UniteCreatorSettingsMultisourcePro();
+			
+		}else {
+		
+			//fre version - add placeholders
+			
+			$objMultisourceSettings = new UniteCreatorSettingsMultisource();
+		}
 		
 		$objMultisourceSettings->setSettings($this);
 		$objMultisourceSettings->addItemsMultisourceSettings($name, $value, $title, $param);

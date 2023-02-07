@@ -558,7 +558,6 @@ class UniteCreatorExporter extends UniteCreatorExporterBase{
 		if($clearCatsFolder == true)
 			UniteFunctionsUC::deleteDir($this->pathExportCategories, false);
 		
-		
 		$this->pathExportCategory = $this->pathExportCategories."category_".UniteFunctionsUC::getRandomString(10)."/";
 		
 		UniteFunctionsUC::mkdirValidate($this->pathExportCategory, "Export Category");

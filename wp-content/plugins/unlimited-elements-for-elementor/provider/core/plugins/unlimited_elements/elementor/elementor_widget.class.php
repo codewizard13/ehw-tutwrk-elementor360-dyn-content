@@ -520,11 +520,13 @@ class UniteCreatorElementorWidget extends Widget_Base {
                 'label' => $itemsLabel
     	 	);
     	 	
-	    	if($itemsType == "multisource"){
+    	 	
+	    	if($itemsType == "multisource" && GlobalsUC::$isProVersion){
 	    		
 	    		$condition = array($this->listingName."_source"=>"items");
 	    		$arrSection["condition"] = $condition;
 	    	}
+	    	
     	 		    	
 	        $this->start_controls_section('section_items', $arrSection);
     	 	

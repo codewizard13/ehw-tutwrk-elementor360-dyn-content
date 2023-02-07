@@ -1,5 +1,19 @@
 
 
+version 1.5.53:
+
+-bug fix: keep exclude terms in grid when filtering with "override terms" mode
+-bug fix: fixed get_terms() not found php error from 1.5.52 version
+
+
+version 1.5.52:
+
+-change: done some protection agains infinite loops in templates
+-bug fix: fixed popup button type conditions
+-bug fix: fixed term meta fields in multisource
+-bug fix: fixed exclude term not found in post select
+
+
 version 1.5.51:
 
 -feature: added version to js comment output

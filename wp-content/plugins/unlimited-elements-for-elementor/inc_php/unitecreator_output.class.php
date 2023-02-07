@@ -2193,13 +2193,15 @@ class UniteCreatorOutputWork extends HtmlOutputBaseUC{
 					
 					if(empty($paramListing))
 						UniteFunctionsUC::throwError("Some multisource dynamic attribute should be found");
-					
+										
 					$paramName = UniteFunctionsUC::getVal($paramListing, "name");
 					
 					$dataValue = UniteFunctionsUC::getVal($arrData, $paramName);
 					
 					if(is_string($dataValue) && $dataValue === "uc_items"){
+						
 						$arrItemData = $this->addon->getProcessedItemsData($this->processType);
+						
 					}
 					elseif(is_array($dataValue)){
 						
@@ -2209,6 +2211,7 @@ class UniteCreatorOutputWork extends HtmlOutputBaseUC{
 						dmp($arrItemData);
 						UniteFunctionsUC::throwError("Wrong multisouce data");
 					}
+					
 					
 					UniteCreatetorParamsProcessorMultisource::checkShowItemsDebug($arrItemData);
 										

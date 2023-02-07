@@ -141,10 +141,10 @@ function UniteSettingsUC(){
 	function getObjInputs(controlsOnly){
 		
 		validateInited();
-		
+				
 		//include
 		var selectors = "input, textarea, select, .unite-setting-inline-editor, .unite-setting-input-object";
-		var selectorNot = "input[type='button'], input[type='range'], select.select2-hidden-accessible";
+		var selectorNot = "input[type='button'], input[type='range'], input[type='search']";
 		
 		if(controlsOnly === true){
 			selectors = "input[type='radio'], select, input.unite-setting-addonpicker";
@@ -217,14 +217,12 @@ function UniteSettingsUC(){
 	 */
 	function getInputType(objInput){
 		
+
 		if(!objInput){
 			console.trace();
 			throw new Error("empty input, can't get type");
 		}
-		
-		if(objInput.hasClass("select2-hidden-accessible"))
-			return(null);
-		
+				
 		if(!objInput || objInput.length == 0){
 			console.trace();
 			throw new Error("getInputType - objInput is empty");
@@ -243,15 +241,24 @@ function UniteSettingsUC(){
 		
 		switch(type){
 			case "select-multiple":
+			case "multiple_select":  // obj name fix
+				
 				type = "multiselect";
 				if(customType)
 					type = customType;
+				
+				if(objInput.hasClass("select2"))
+					type = "select2";
 				
 			break;
 			case "select-one":
 				type = "select";
 				if(customType)
 					type = customType;
+				
+				if(objInput.hasClass("select2"))
+					type = "select2";
+				
 			break;
 			case "number":
 				type = "text";
@@ -301,7 +308,6 @@ function UniteSettingsUC(){
 			break;
 		}
 		
-		
 		return(type);
 	}
 	
@@ -315,6 +321,8 @@ function UniteSettingsUC(){
 		var type = getInputType(objInput);
 		var value = objInput.val();
 		var inputID = objInput.prop("id");
+
+
 		
 		if(!name)
 			return(g_vars.NOT_UPDATE_OPTION);
@@ -382,7 +390,10 @@ function UniteSettingsUC(){
 			case "dimentions":
 				value = dimentionsGetValues(objInput);
 			break;
+			case "select2":
+			break;
 			default:
+
 				//custom settings
 				var objCustomType = getCustomSettingType(type);
 				if(objCustomType){
@@ -397,8 +408,7 @@ function UniteSettingsUC(){
 		
 		if(flagUpdate == false)
 			return(g_vars.NOT_UPDATE_OPTION);
-		
-		
+				
 		return(value);
 	}
 	
@@ -419,7 +429,7 @@ function UniteSettingsUC(){
 		else{
 			var objInputs = getObjInputs().not(".unite-setting-transparent");
 		}
-		
+				
 		jQuery.each(objInputs, function(index, input){
 			
 			var objInput = jQuery(input);
@@ -465,8 +475,8 @@ function UniteSettingsUC(){
 			
 		});
 		
-		//trace("settings values");
-		//trace(obj);
+		trace("settings values");
+		trace(obj);
 		
 		return(obj);
 	};
@@ -657,7 +667,23 @@ function UniteSettingsUC(){
 								
 				defaultValue = objInput.data(dataname);
 				defaultValue = multiSelectModifyForSet(defaultValue);
+				
 				objInput.val(defaultValue);
+			break;
+			case "select2":
+				
+				//no clear for now
+			
+				/*
+				g_temp.enableTriggerChange = false;
+				
+				defaultValue = objInput.data(dataname);
+				objInput.select2("val",defaultValue);
+				objInput.trigger("change");
+				
+				g_temp.enableTriggerChange = true;
+				*/
+				
 			break;
 			case "dimentions":
 				//no clear for now
@@ -812,6 +838,12 @@ function UniteSettingsUC(){
 			case "multiselect":
 				value = multiSelectModifyForSet(value);
 				objInput.val(value);
+			break;
+			case "select2":
+				
+				objInput.select2("val",value);
+				objInput.trigger("change");
+				
 			break;
 			default:
 				
@@ -1063,6 +1095,19 @@ function UniteSettingsUC(){
 		objRangeWrapper.data("inited", true);
 	}
 	
+
+
+	function _______SELECT2_____(){}
+
+
+	function initSelect2(objInput){
+		
+		objInput.select2()
+			.on('change', function(e){
+				t.onSettingChange(null,objInput,true)
+			})
+	}
+
 	
 	function _______MULTI_SELECT_____(){}
 
@@ -1180,7 +1225,6 @@ function UniteSettingsUC(){
 				
 				
 	}
-	
 	
 	/**
 	 * check onchange on color input
@@ -2637,9 +2681,7 @@ function UniteSettingsUC(){
 			
 			objToggle.attr("checked","checked");
 			objToggle.prop("checked","checked");
-			
-			//trace(objToggle);
-			
+						
 			//open section
 			var sectionID = objToggle.data("target");
 						
@@ -3431,7 +3473,8 @@ function UniteSettingsUC(){
 	 * run on setting change
 	 */
 	this.onSettingChange = function(event, objInput, isInstantChange){
-				
+		
+	
 		if(g_temp.enableTriggerChange == false)
 			return(true);
 		
@@ -3441,6 +3484,7 @@ function UniteSettingsUC(){
 		
 		if(!objInput)
 			var objInput = jQuery(event.target);
+
 				
 		var type = getInputType(objInput);
 		
@@ -3587,12 +3631,13 @@ function UniteSettingsUC(){
 	 * init single input event
 	 */
 	function initInputEvents(objInput, funcChange){
-				
+		
 		if(!funcChange)
 			funcChange = t.onSettingChange;
 		
 		var type = getInputType(objInput);
 		var basicType = getInputBasicType(objInput);
+
 				
 		//init by type
 		switch(type){
@@ -3620,8 +3665,13 @@ function UniteSettingsUC(){
 			case "multiselect":
 				objInput.on("input", funcChange);
 			break;
+			case "select2":
+
+				initSelect2(objInput)
+
+								
+			break;
 			default:
-				
 				//custom setting
 				var objCustomType = getCustomSettingType(type);
 				if(objCustomType){

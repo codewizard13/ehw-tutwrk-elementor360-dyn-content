@@ -647,7 +647,6 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 		 */
 		public function putTermCustomFieldsDebug($term){
 			
-			
 			if(is_array($term)){
 				
 				$termID = UniteFunctionsUC::getVal($term, "id");
@@ -657,10 +656,11 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 				
 				$termID = $term->term_id;
 				$name = $term->name;
-			}
 			
+			}
 			$arrCustomFields = UniteFunctionsWPUC::getTermCustomFields($termID,false);
 
+			
 			foreach($arrCustomFields as $key=>$field){
 				$arrCustomFields[$key] = $this->modifyDebugField($field);
 			}

@@ -92,12 +92,43 @@ function UniteCreatorTestAddonNew(){
 			
 			refreshPreview();
 			
+			//testSettings();
 		});
 		
 		
 	}
 	
 	
+	function testSettings(){
+		
+		setTimeout(function(){
+
+			//get values test
+
+			var values = g_settings.getSettingsValues();
+			
+			trace(values);
+			
+			//set values test
+			
+			setTimeout(function(){
+				values.text1 = "other text";
+				values.multiple_select = ["option1"];
+				
+				g_settings.setValues(values);
+				
+				setTimeout(function(){
+					g_settings.clearSettings();
+				},500);
+				
+			},500);
+			
+			
+		},1000);
+		
+		trace("test settings!");
+		
+	}
 	
 	/**
 	 * init the testaddon class

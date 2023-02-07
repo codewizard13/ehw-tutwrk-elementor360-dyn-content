@@ -16,12 +16,12 @@ class ProviderOperationsUC extends UCOperations{
 	 */
 	private function getSearchFromData($data){
 		
-		$type = UniteFunctionsUG::getVal($data, "_type");
+		$type = UniteFunctionsUC::getVal($data, "_type");
 		
 		if($type != "query")
 			return(null);
 		
-		$searchTerm = UniteFunctionsUG::getVal($data, "q");
+		$searchTerm = UniteFunctionsUC::getVal($data, "q");
 		
 		return($searchTerm);
 	}
@@ -31,7 +31,7 @@ class ProviderOperationsUC extends UCOperations{
 	 */
 	public function getSelect2TermsTitles($data){
 		
-		$arrIDs = UniteFunctionsUG::getVal($data, "post_ids");
+		$arrIDs = UniteFunctionsUC::getVal($data, "post_ids");
 		
 		if(empty($arrIDs))
 			return(null);
@@ -79,7 +79,7 @@ class ProviderOperationsUC extends UCOperations{
 	 */
 	public function getSelect2PostTitles($data){
 		
-		$arrIDs = UniteFunctionsUG::getVal($data, "post_ids");
+		$arrIDs = UniteFunctionsUC::getVal($data, "post_ids");
 		
 		$arrTypesAssoc = UniteFunctionsWPUC::getPostTypesAssoc(array(), true);
 		
@@ -95,11 +95,11 @@ class ProviderOperationsUC extends UCOperations{
 		
 		foreach($response as $record){
 			
-			$id = UniteFunctionsUG::getVal($record, "id");
-			$title = UniteFunctionsUG::getVal($record, "title");
-			$postType = UniteFunctionsUG::getVal($record, "type");
+			$id = UniteFunctionsUC::getVal($record, "id");
+			$title = UniteFunctionsUC::getVal($record, "title");
+			$postType = UniteFunctionsUC::getVal($record, "type");
 			
-			$typeTitle = UniteFunctionsUG::getVal($arrTypesAssoc, $postType);
+			$typeTitle = UniteFunctionsUC::getVal($arrTypesAssoc, $postType);
 			
 			if(empty($typeTitle))
 				$typeTitle = $postType;
@@ -125,7 +125,7 @@ class ProviderOperationsUC extends UCOperations{
 		$limit = 10;
 		
 		$search = $this->getSearchFromData($data);
-		$taxonomy = UniteFunctionsUG::getVal($data, "taxonomy");
+		$taxonomy = UniteFunctionsUC::getVal($data, "taxonomy");
 				
 		$query = array();
 		$query["number"] = $limit;
@@ -179,7 +179,7 @@ class ProviderOperationsUC extends UCOperations{
 		
 		$search = $this->getSearchFromData($data);
 		
-		$filterPostType = UniteFunctionsUG::getVal($data, "post_type");
+		$filterPostType = UniteFunctionsUC::getVal($data, "post_type");
 		
 		switch($filterPostType){
 			case "product":
@@ -251,7 +251,7 @@ class ProviderOperationsUC extends UCOperations{
 			$postTitle = $post["post_title"];
 			$postType = $post["post_type"];
 			
-			$postTypeTitle = UniteFunctionsUG::getVal($arrTypesAssoc, $postType);
+			$postTypeTitle = UniteFunctionsUC::getVal($arrTypesAssoc, $postType);
 			
 			if(empty($postTypeTitle))
 				$postTypeTitle = $postType;

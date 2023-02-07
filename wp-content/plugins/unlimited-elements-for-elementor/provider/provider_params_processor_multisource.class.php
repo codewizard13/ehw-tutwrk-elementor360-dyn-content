@@ -913,15 +913,16 @@ class UniteCreatetorParamsProcessorMultisource{
 			break;
 			case self::SOURCE_TERMS:
 				
-				$termID = UniteFunctionsUC::getVal($dataItem, "term_id");
+				$termID = UniteFunctionsUC::getVal($dataItem, "id");
 				
 				if(empty($termID))
 					return("");
 				
-				$arrFields = UniteFunctionsWPUC::getTermCustomFields($termID);
+				$arrFields = UniteFunctionsWPUC::getTermCustomFields($termID, false);
 				
 				$value = UniteFunctionsUC::getVal($arrFields, $metaKey);
-								
+				
+				
 			break;
 			case self::SOURCE_USERS:
 				
@@ -1375,6 +1376,11 @@ class UniteCreatetorParamsProcessorMultisource{
 		
 		$this->showDebugMeta = $isShowMeta;
 		
+		//free type always items
+		if(strpos($itemsSource, "_free") !== false)
+			$itemsSource = "items";
+		
+		
 		if($itemsSource == "items"){
 			
 			$data[$name] = "uc_items";
@@ -1388,7 +1394,7 @@ class UniteCreatetorParamsProcessorMultisource{
 		$this->checkDebugBeforeData($itemsSource);
 		
 		$arrData = $this->getData($itemsSource);
-				
+		
 		$this->showDebug_input($itemsSource, $arrData);
 		
 		if(empty($arrData) && $this->isInsideEditor == true){

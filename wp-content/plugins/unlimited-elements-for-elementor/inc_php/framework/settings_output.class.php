@@ -1304,7 +1304,8 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 			$type = UniteFunctionsUC::getVal($setting, "type");
 			
 			$name = UniteFunctionsUC::getVal($setting, "name");
-						
+		
+			
 			$isMultiple = false;
 			if($type == "multiselect")
 				$isMultiple = true;
@@ -1326,12 +1327,24 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 				$addHtml .= " multiple";
 			}
 			
-			$class = $this->getInputClassAttr($setting);
+			//set this flag for true to enable select2
+			
+			$setSelect = true;
+			
+			if($setSelect == true){
+			
+				$defaultClass = "";
+				if($isMultiple == true)
+					$defaultClass = "select2";
+			}
+				
+			$class = $this->getInputClassAttr($setting, $defaultClass);
 			
 			$arrItems = UniteFunctionsUC::getVal($setting, "items",array());
 			if(empty($arrItems))
 				$arrItems = array();
 			
+				
 			?>
 			<select id="<?php echo esc_attr($setting["id"])?>" name="<?php echo esc_attr($setting["name"])?>" <?php echo UniteProviderFunctionsUC::escAddParam($disabled)?> <?php echo UniteProviderFunctionsUC::escAddParam($class)?> <?php echo UniteProviderFunctionsUC::escAddParam($args)?> <?php echo UniteProviderFunctionsUC::escAddParam($addHtml)?>>
 			<?php
@@ -1350,7 +1363,7 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 				}
 				
 				?>
-					<option <?php echo UniteProviderFunctionsUC::escAddParam($addition)?> value="<?php echo esc_attr($value)?>" <?php echo UniteProviderFunctionsUC::escAddParam($selected)?>><?php echo UniteProviderFunctionsUC::escAddParam($text)?></option>
+					<option <?php echo $addition?> value="<?php echo esc_attr($value)?>" <?php echo UniteProviderFunctionsUC::escAddParam($selected)?>><?php echo UniteProviderFunctionsUC::escAddParam($text)?></option>
 				<?php
 			endforeach
 			?>

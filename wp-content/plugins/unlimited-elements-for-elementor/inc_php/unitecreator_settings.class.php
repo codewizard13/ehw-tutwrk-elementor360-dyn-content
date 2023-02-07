@@ -613,14 +613,18 @@ class UniteCreatorSettingsWork extends UniteSettingsAdvancedUC{
 			case "dynamic_popup":
 				
 				$title = UniteFunctionsUC::getVal($param, "title");
-				
+
+				$condition = HelperProviderCoreUC_EL::paramToElementorCondition($param);
+								
 				$arrOptions = array();
 				$arrOptions["post"] = __("Post Link","unlimited-elements-for-elementor");
 				$arrOptions["popup"] = __("Dynamic Post Popup","unlimited-elements-for-elementor");
 				
 				$params = array();
 				$params["origtype"] = UniteCreatorDialogParam::PARAM_DROPDOWN;
+				$params["elementor_condition"] = $condition;
 				
+								
 				$arrOptions = array_flip($arrOptions);
 				
 				$this->addSelect("{$name}_link_type", $arrOptions, $title, "post", $params);
@@ -629,7 +633,9 @@ class UniteCreatorSettingsWork extends UniteSettingsAdvancedUC{
 				
 				$params = array();
 				$params["origtype"] = UniteCreatorDialogParam::PARAM_STATIC_TEXT;
-				$params["elementor_condition"] = array("{$name}_link_type"=>"popup");
+				
+				$condition["{$name}_link_type"] = "popup";
+				$params["elementor_condition"] = $condition;
 				
 				$text = __("This option works with \"Dynamic Post Popup\" widget. Please put it to the page.", "unlimited-elements-for-elementor");
 				

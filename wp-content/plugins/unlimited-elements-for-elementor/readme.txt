@@ -1238,6 +1238,19 @@ Note : This plugin works with Elementor. Make sure you have [Elementor](https://
 
 == Changelog ==
 
+version 1.5.53: 2023-02-07
+
+* Fix: keep exclude terms in grid when filtering with "override terms" mode
+* Fix: fixed get_terms() not found php error from 1.5.52 version
+
+
+version 1.5.52: 2023-02-06
+
+* Change: done some protection agains infinite loops in templates
+* Fix: fixed popup button type conditions
+* Fix: fixed term meta fields in multisource
+* Fix: fixed exclude term not found in post select
+
 version 1.5.51: 2023-01-31
 
 * Feature: added version to js comment output

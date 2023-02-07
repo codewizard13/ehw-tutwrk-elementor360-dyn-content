@@ -1385,21 +1385,28 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 			
 			if(isset(self::$cacheTermCustomFields[$cacheKey]))
 				return(self::$cacheTermCustomFields[$cacheKey]);
-						
-			$isAcfActive = UniteCreatorAcfIntegrate::isAcfActive();
+									
+			$arrMeta = self::getTermMeta($termID, $addPrefixes);
 			
-			if($isAcfActive == false){
-				$arrMeta = self::getTermMeta($termID, $addPrefixes);
+			if(empty($arrMeta))
+				return(array());
+			
+			$isAcfActive = UniteCreatorAcfIntegrate::isAcfActive();
 				
+			if($isAcfActive == false)
 				return($arrMeta);
-			}
+				
+			//merge with acf
 			
 			$objAcf = self::getObjAcfIntegrate();
 			$arrCustomFields = $objAcf->getAcfFields($termID, "term",$addPrefixes);
 			
-			self::$cacheTermCustomFields[$cacheKey] = $arrCustomFields;
+			if(!empty($arrCustomFields))
+				$arrMeta = array_merge($arrMeta, $arrCustomFields);
 			
-			return($arrCustomFields);
+			self::$cacheTermCustomFields[$cacheKey] = $arrMeta;
+			
+			return($arrMeta);
 		}
 		
 		/**

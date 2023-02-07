@@ -540,6 +540,32 @@ class UniteCreatorFiltersProcess{
 	}
 	
 	/**
+	 * remove "not in" tax query
+	 */
+	private function keepNotInTaxQuery($arrTaxQuery){
+		
+		if(empty($arrTaxQuery))
+			return(null);
+			
+		$arrNew = array();
+		
+		foreach($arrTaxQuery as $tax){
+			
+			if(isset($tax["operator"])){
+				$arrNew[] = $tax;
+				continue;
+			}
+			
+			$operator = UniteFunctionsUC::getVal($tax, "operator");
+			if($operator == "NOT IN")
+				$arrNew[] = $tax;
+		}
+		
+		return($arrNew);
+	}
+	
+	
+	/**
 	 * set arguments tax query, merge with existing if avaliable
 	 */
 	private function setArgsTaxQuery($args, $arrTaxQuery){
@@ -550,9 +576,10 @@ class UniteCreatorFiltersProcess{
 		$existingTaxQuery = UniteFunctionsUC::getVal($args, "tax_query");
 		
 		//if replace terms mode - just delete the existing tax query
-		if(self::$isModeReplace == true)
-			$existingTaxQuery = null;
-			
+		if(self::$isModeReplace == true){
+			$existingTaxQuery = $this->keepNotInTaxQuery($existingTaxQuery);
+		}
+		
 		if(empty($existingTaxQuery)){
 			
 			$args["tax_query"] = $arrTaxQuery;
@@ -564,7 +591,7 @@ class UniteCreatorFiltersProcess{
 			$existingTaxQuery, 
 			$arrTaxQuery
 		);
-				
+		
 		$newTaxQuery["relation"] = "AND";
 		
 		

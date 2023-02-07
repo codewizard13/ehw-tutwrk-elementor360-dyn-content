@@ -145,6 +145,9 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 					HelperUC::addScript("unitecreator_testaddon_admin");
 					HelperUC::addStyle("unitecreator_browser","unitecreator_browser_css");
 					
+					HelperUC::addScript("select2.full.min", "select2_js","js/select2");
+					HelperUC::addStyle("select2", "select2_css","js/select2");
+					
 				break;
 				case "testaddonnew":
 					
@@ -152,6 +155,8 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 					UniteCreatorManager::putScriptsIncludes(UniteCreatorManager::TYPE_ITEMS_INLINE);
 					
 					HelperUC::addStyle("unitecreator_browser","unitecreator_browser_css");
+					HelperUC::addScript("select2.full.min", "select2_js","js/select2");
+					HelperUC::addStyle("select2", "select2_css","js/select2");
 					
 					HelperUC::addScript("unitecreator_helper","unitecreator_helper");
 					HelperUC::addScript("unitecreator_testaddon_new","unitecreator_testaddon_new");

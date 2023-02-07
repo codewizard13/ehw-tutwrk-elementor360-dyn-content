@@ -263,3 +263,10 @@ add_action( 'admin_enqueue_scripts', 'wpbf_enqueue_admin_scripts' );
 
 // Init.
 require_once WPBF_THEME_DIR . '/inc/init.php';
+
+
+function guest_vid_embed_shortcode() {
+	$myfield = get_field('guest_vid_embed');
+	return $myfield;
+}
+add_shortcode( 'guestvid-em', 'guest_vid_embed_shortcode');
